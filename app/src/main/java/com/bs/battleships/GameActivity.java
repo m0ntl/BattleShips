@@ -33,19 +33,15 @@ public class GameActivity extends AppCompatActivity {
 
 class ImageAdapter extends BaseAdapter {
     private Context mContext;
-
     public ImageAdapter(Context c) {
         mContext = c;
     }
-
     public int getCount() {
         return mThumbIds.length;
     }
-
     public Object getItem(int position) {
         return null;
     }
-
     public long getItemId(int position) {
         return 0;
     }
