@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+        //Just a comment
     }
 }
 
