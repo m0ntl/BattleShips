@@ -9,8 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bs.battleships.MainMenu">
 
-    <TextView
+    <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/start_game_button_text"
+        android:onClick="startGame"
+        android:id="@+id/startGameButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="118dp" />
 </RelativeLayout>

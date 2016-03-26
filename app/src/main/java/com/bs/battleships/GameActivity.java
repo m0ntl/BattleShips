@@ -28,7 +28,6 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-        //Just a comment
     }
 }
 
@@ -55,7 +54,7 @@ class ImageAdapter extends BaseAdapter {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(8,8,8,8);
         } else {
             imageView = (ImageView) convertView;
         }
@@ -66,6 +65,12 @@ class ImageAdapter extends BaseAdapter {
 
     // references to images
     private Integer[] mThumbIds = {
-            R.drawable.Fire, R.drawable.Water, R.drawable.Empty
+            R.drawable.fire, R.drawable.water, R.drawable.empty,
+            R.drawable.fire, R.drawable.water, R.drawable.empty,
+            R.drawable.fire, R.drawable.water, R.drawable.water,
+            R.drawable.fire, R.drawable.water, R.drawable.fire,
+            R.drawable.fire, R.drawable.water, R.drawable.water,
+            R.drawable.fire, R.drawable.water, R.drawable.fire,
+            R.drawable.fire, R.drawable.water, R.drawable.empty
     };
 }
