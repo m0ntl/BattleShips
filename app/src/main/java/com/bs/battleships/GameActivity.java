@@ -3,6 +3,7 @@ package com.bs.battleships;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity {
 
-    GameBoard playerBoard;
-    GameBoard opponentBoard;
+    private GameBoard playerBoard, opponentBoard;
+    private BoardAdapter playerBoardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
 
         //Board size should be received from the main activity
         int boradHeight = 8, boradWidth = 6;
-        GameBoard playerBoard = new GameBoard(boradHeight, boradWidth);
+        this.playerBoard = new GameBoard(boradHeight, boradWidth);
         //GameBoard opponentBoard = new GameBoard(BoradHeight, BoradWidth);
 
         for(int i =0; i < (boradHeight*boradWidth);i++){
@@ -34,14 +35,70 @@ public class GameActivity extends AppCompatActivity {
         }
 
         GridView gridview = (GridView) findViewById(R.id.gameBoardContainer);
-        gridview.setAdapter(new BoardAdapter(this,playerBoard));
+        this.playerBoardAdapter = new BoardAdapter(this,playerBoard);
+        gridview.setAdapter(playerBoardAdapter);
+        gridview.setOnItemClickListener(itemClickedListener);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(GameActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+                playerBoard.get(position).isHit();
+                /*playerBoardAdapter.notifyDataSetChanged();
+
             }
-        });
+        });*/
     }
+
+    AdapterView.OnItemClickListener itemClickedListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            /*Toast.makeText(GameActivity.this, "item at pos: " + position,
+                    Toast.LENGTH_SHORT).show();
+                    */
+            playerBoard.get(position).setHit();
+            playerBoardAdapter.notifyDataSetChanged();
+
+        }
+
+            /*Cell cell = cells.get(position);
+            if (cell.getStatus() != Cell.FLAGGED) {
+
+                cell.setClickable(false);
+                Log.d("prss on: ", " " + position);
+
+                if (!isGameStart()) {
+                    startTime();
+                    setRandomMines(position, level);
+                    putNumbers();
+                }
+
+                if (cell.getIsMined()) {
+                    setEndGame(position);
+                }
+
+                if (cell.getNumberOfMines() > 0) {
+                    cell.setStatus(Cell.NUMBER);
+                    numberOfOpenCell++;
+                    openCells.add(cell);
+                }
+
+                if (cell.getNumberOfMines() == 0) {
+                    openRec(cell);
+                }
+
+                //String s1 = String.valueOf(numberOfMinesInGame-flags.size());
+                String s1 = String.format("%d",numberOfMinesInGame-flags.size());
+                flagesView.setText(s1);
+                //flagesView.setText(""+(numberOfMinesInGame-flags.size()));
+                adapter.notifyDataSetChanged();
+                Log.d("numberOfOpenCell: ", " " + numberOfOpenCell);
+
+                if(row*col-numberOfMinesInGame == numberOfOpenCell)
+                    winGame();
+            }
+        }*/
+
+
+    };
 }

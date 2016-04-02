@@ -39,8 +39,8 @@ public class Cell {
         return hit;
     }
 
-    public void setHit(boolean hit) {
-        this.hit = hit;
+    public void setHit() {
+        this.hit = true;
     }
 
     public int getImage(){
@@ -51,5 +51,12 @@ public class Cell {
         } else {
             return R.drawable.water;
         }
+    }
+
+    public String toString(){
+        if(hit){
+            return "Was hit";
+        }
+        return "Not hit" ;
     }
 }
