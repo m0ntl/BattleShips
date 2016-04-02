@@ -5,6 +5,9 @@ package com.bs.battleships;
  * Created by montl on 27/03/2016.
  * Cell class to construct the board array.
  * added comment2
+ *
+ *
+ *
  */
 public class Cell {
     private boolean hasShip;
