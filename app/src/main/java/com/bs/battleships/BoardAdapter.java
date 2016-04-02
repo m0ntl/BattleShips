@@ -18,7 +18,7 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
     private GameBoard board;
 
     public BoardAdapter(Context context, ArrayList<Cell> gameBoard) {
-        super(context,0,gameBoard);
+        super(context,6,gameBoard);
         this.mContext = context;
         this.board = (GameBoard)gameBoard;
     }
@@ -29,7 +29,7 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
     }*/
 
     public int getCount() {
-        return 21;
+        return board.size();
     }
     public long getItemId(int position) {
         return 0;
@@ -40,7 +40,6 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
         ImageView imageView;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
