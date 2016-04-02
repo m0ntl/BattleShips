@@ -6,7 +6,12 @@ package com.bs.battleships;
  * Cell class to construct the board array.
  * added comment2
  *
- *
+ *asdasdasd
+ * asd
+ * asd
+ * asd
+ * asd
+ * asd
  *
  */
 public class Cell {
