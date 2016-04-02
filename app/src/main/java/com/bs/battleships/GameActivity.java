@@ -6,20 +6,35 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class GameActivity extends AppCompatActivity {
+
+    GameBoard playerBoard;
+    GameBoard opponentBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        GridView gridview = (GridView) findViewById(R.id.gameBoard);
-        gridview.setAdapter(new ImageAdapter(this));
+        //Board size should be received from the main activity
+        int boradHeight = 8, boradWidth = 6;
+        GameBoard playerBoard = new GameBoard(boradHeight, boradWidth);
+        //GameBoard opponentBoard = new GameBoard(BoradHeight, BoradWidth);
+
+        for(int i =0; i < (boradHeight*boradWidth);i++){
+            playerBoard.add(new Cell());
+        }
+
+        GridView gridview = (GridView) findViewById(R.id.gameBoardContainer);
+        gridview.setAdapter(new BoardAdapter(this,playerBoard));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -29,48 +44,4 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-}
-
-class ImageAdapter extends BaseAdapter {
-    private Context mContext;
-    public ImageAdapter(Context c) {
-        mContext = c;
-    }
-    public int getCount() {
-        return mThumbIds.length;
-    }
-    public Object getItem(int position) {
-        return null;
-    }
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8,8,8,8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
-
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
-    }
-
-    // references to images
-    private Integer[] mThumbIds = {
-            R.drawable.fire, R.drawable.water, R.drawable.empty,
-            R.drawable.fire, R.drawable.water, R.drawable.empty,
-            R.drawable.fire, R.drawable.water, R.drawable.water,
-            R.drawable.fire, R.drawable.water, R.drawable.fire,
-            R.drawable.fire, R.drawable.water, R.drawable.water,
-            R.drawable.fire, R.drawable.water, R.drawable.fire,
-            R.drawable.fire, R.drawable.water, R.drawable.empty
-    };
 }
