@@ -8,46 +8,47 @@ import java.util.ArrayList;
 /**
  * Created by montl on 27/03/2016.
  */
-public class GameBoard /*implements Parcelable*/{
+public class GameBoard /*implements Parcelable*/ {
 
     private int height, width;
     ArrayList<Cell> boardArray;
 
-    public GameBoard(int height, int width) {
-        this.height = height;
-        this.width = width;
-        this.boardArray = new ArrayList<Cell>(height*width);
+    //public GameBoard(int height, int width) {
+    public GameBoard() {
+        //  this.height = height;
+        //  this.width = width;
+        this.boardArray = new ArrayList<Cell>();
     }
 
-    public int getHeight() {
-        return height;
-    }
+    // public int getHeight() {
+    // return height;
+    // }
 
-    public int getWidth() {
-        return width;
-    }
-    public boolean wonGame(){
-        for(Cell c : boardArray){
-            if((!c.isHit()) && c.containsShip()){
+    //   public int getWidth() {
+    // return width;
+    //  }
+    public boolean wonGame() {
+        for (Cell c : boardArray) {
+            if ((!c.isHit()) && c.containsShip()) {
                 return false;
             }
         }
         return true;
     }
 
-    public Cell get(int position){
+    public Cell get(int position) {
         return boardArray.get(position);
     }
 
-    public void add(Cell c){
+    public void add(Cell c) {
         boardArray.add(c);
     }
 
-    public ArrayList getBoard(){
+    public ArrayList getBoard() {
         return boardArray;
     }
 
-    public int size(){
+    public int size() {
         return boardArray.size();
     }
 
