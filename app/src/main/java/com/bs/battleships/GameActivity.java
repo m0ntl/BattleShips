@@ -37,31 +37,31 @@ public class GameActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         //Board size should be received from the main activity
-        int boardHeight = 9, boardWidth = 6;
+        int boardHeight = 7, boardWidth = 14;
 
         //Player board init
-        this.playerBoard = new GameBoard(boardHeight, boardWidth);
-        for(int i =0; i < (boardHeight*boardWidth);i++){
+        // this.playerBoard = new GameBoard(boardHeight, boardWidth);
+        this.playerBoard = new GameBoard();
+        int celNum = boardHeight * boardWidth;
+        for (int i = 0; i < celNum; i++) {
             playerBoard.add(new Cell());
         }
 
         //Player grid view init
         playerGridView = (GridView) findViewById(R.id.playerTurnView);
-        playerBoardAdapter = new BoardAdapter(this,playerBoard);
+        playerBoardAdapter = new BoardAdapter(this, playerBoard);
         playerGridView.setAdapter(playerBoardAdapter);
         playerGridView.setOnItemClickListener(itemClickedListener);
         playerGridView.setNumColumns(boardWidth);
 
-
-        //init opponent board
-        opponentBoard = new GameBoard(boardHeight, boardWidth);
-        for(int i =0; i < (boardHeight*boardWidth);i++){
+        this.opponentBoard = new GameBoard();
+        for (int i = 0; i < celNum; i++) {
             opponentBoard.add(new Cell());
         }
 
         //Opponent grid view init
-        opponentGridview = (GridView) findViewById(R.id.opponentTurnView2);
-        opponentBoardAdapter = new BoardAdapter(this,opponentBoard);
+        opponentGridview = (GridView) findViewById(R.id.opponentTurnView);
+        opponentBoardAdapter = new BoardAdapter(this, opponentBoard);
         opponentGridview.setAdapter(opponentBoardAdapter);
         opponentGridview.setNumColumns(boardWidth);
 
@@ -77,12 +77,11 @@ public class GameActivity extends AppCompatActivity {
             playerBoard.get(position).setHit();
             playerBoardAdapter.notifyDataSetChanged();
 
-            if(playerBoard.wonGame()){//will change to move to score activity
+            if (playerBoard.wonGame()) {//will change to move to score activity
                 //Toast.makeText(GameActivity.this,"You have won",Toast.LENGTH_SHORT).show();
             }
 
-            Toast.makeText(GameActivity.this,"Opponent's turn now",Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
             opponentTurn();
         }
     };

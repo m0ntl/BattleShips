@@ -41,13 +41,13 @@ public class Cell {
         this.hit = true;
     }
 
-    public int getImage(){
+    public int getImageId(){
         if(!isHit()){
-            return R.drawable.empty;
+            return R.drawable.unselected;
         } else if(containsShip()){
-            return R.drawable.fire;
+            return R.drawable.ic_ship;
         } else {
-            return R.drawable.water;
+            return R.drawable.ic_empty;
         }
     }
 
