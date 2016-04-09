@@ -5,13 +5,13 @@ package com.bs.battleships;
  */
 public class Ship {
     private static int idCounter=0;
-    private int id, length, numHits=0;
-    private Coordinate start;
+    private int id, location, length, numHits=0;
+    //private Coordinate start;
     private Orientation shipOrientation;
 
-    public Ship(int length, Coordinate start, Orientation shipOrientation){
+    public Ship(int length, int location, Orientation shipOrientation){
         this.length = length;
-        this.start = start;
+        this.location = location;
         this.shipOrientation = shipOrientation;
         this.id = idCounter;
         idCounter++;
@@ -22,5 +22,13 @@ public class Ship {
     public boolean isDrowned(){
         return length == numHits;
     }
-
+    public Orientation getOrientation() {
+        return shipOrientation;
+    }
+    public int getLocation() {
+        return location;
+    }
+    public int getLength() {
+        return length;
+    }
 }

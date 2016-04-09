@@ -45,21 +45,75 @@ public class GameBoard /*implements Parcelable*/ {
         return boardArray;
     }
 
-    public void hit(int position){
-        boardArray.get(position).setHit();
-    }
-
-    public int size() {
+    public int boardSize() {
         return boardArray.size();
     }
 
-    /*@Override
-    public int describeContents() {
-        return 0;
+    public boolean addShip(Ship ship){
+        if(shipInBorder(ship) && notOverlappingShip(ship)){
+            ships.addShip(ship);
+            updateBoard(ship);
+            return true;
+        }
+        return false;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeArray();
-    }*/
+    private void updateBoard(Ship ship) {
+        //go over cells in board and update them that there is a ship there
+        int stepSize,position = ship.getLocation();
+        //check if the ship overlaps any other ship on the board
+        if(ship.getOrientation() == Orientation.HORIZONTAL){
+            stepSize = 1;
+        } else {
+            stepSize = width;
+        }
+        for(int i=0;i<ship.getLength();i++){
+            hitCell(position);
+            position = position + stepSize;
+        }
+    }
+
+    private boolean shipInBorder(Ship ship) {
+        //check that the ship is inside the borders of the game board
+        if(ship.getOrientation() == Orientation.HORIZONTAL){
+            //check that the end of the ship is on the board
+            if(ship.getLocation()+ship.getLength() >= boardSize()){
+                return false;
+            }
+            //check that the beginning and end of the ship fit on the same row
+            if (ship.getLocation() % width != ship.getLocation()+ship.getLength() % width){
+                return false;
+            }
+        } else { //ship orientation is vertical
+            //check that the ship is on the board
+            if(ship.getLocation()+ (ship.getLength()-1)*width > boardSize()){
+                return false;
+            }
+            //no need to check that the ship fits on the same row because if it does not the
+            //end of the ship will be outside the board.
+        }
+        return true;
+    }
+    private boolean notOverlappingShip(Ship ship){
+        int stepSize,position = ship.getLocation();
+        //check if the ship overlaps any other ship on the board
+        if(ship.getOrientation() == Orientation.HORIZONTAL){
+            stepSize = 1;
+        } else {
+            stepSize = width;
+        }
+        for(int i=0;i<ship.getLength();i++){
+            if(cellHit(position)){
+                return false;
+            }
+            position = position + stepSize;
+        }
+        return true;
+    }
+    public boolean cellHit(int position){
+        return boardArray.get(position).isHit();
+    }
+    public void hitCell(int position){
+        boardArray.get(position).setHit();
+    }
 }
