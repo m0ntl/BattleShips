@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GameBoard /*implements Parcelable*/ {
 
     private int height, width;
-    ArrayList<Cell> boardArray;
+    private ArrayList<Cell> boardArray;
 
     //public GameBoard(int height, int width) {
     public GameBoard() {

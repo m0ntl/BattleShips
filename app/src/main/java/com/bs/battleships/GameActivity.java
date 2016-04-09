@@ -37,7 +37,8 @@ public class GameActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         //Board size should be received from the main activity
-        int boardHeight = 7, boardWidth = 14;
+        //(6,8),(6,10),(6,12)
+        int boardHeight = 6, boardWidth = 12;
 
         //Player board init
         // this.playerBoard = new GameBoard(boardHeight, boardWidth);

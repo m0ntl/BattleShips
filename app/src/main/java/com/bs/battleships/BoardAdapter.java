@@ -29,11 +29,6 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
         this.board = gameBoard;
     }
 
-    /*public BoardAdapter(Context context, int resource) { //for testing, need to delete
-        super(context, resource);
-        this.mContext = context;
-    }*/
-
     public int getCount() {
         return board.size();
     }
