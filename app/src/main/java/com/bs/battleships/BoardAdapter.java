@@ -30,7 +30,7 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
     }
 
     public int getCount() {
-        return board.size();
+        return board.boardSize();
     }
 
     public long getItemId(int position) {

@@ -69,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
             /*Toast.makeText(GameActivity.this, "item at pos: " + position,
                     Toast.LENGTH_SHORT).show();
                     */
-            playerBoard.hit(position);
+            playerBoard.hitCell(position);
             playerBoardAdapter.notifyDataSetChanged();
 
             if (playerBoard.wonGame()) {//will change to move to score activity

@@ -11,7 +11,7 @@ public class GameLogic {
     }
 
     public static void opponentNextTurn(GameBoard board){
-        int location, max = board.size();
+        int location, max = board.boardSize();
         boolean legalHit = false;
         Random RANDOM = new Random();
         //while(!legalHit){

@@ -103,14 +103,14 @@ public class GameBoard /*implements Parcelable*/ {
             stepSize = width;
         }
         for(int i=0;i<ship.getLength();i++){
-            if(cellHit(position)){
+            if(checkCellHit(position)){
                 return false;
             }
             position = position + stepSize;
         }
         return true;
     }
-    public boolean cellHit(int position){
+    public boolean checkCellHit(int position){
         return boardArray.get(position).isHit();
     }
     public void hitCell(int position){
