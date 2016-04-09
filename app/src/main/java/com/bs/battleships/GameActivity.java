@@ -42,11 +42,8 @@ public class GameActivity extends AppCompatActivity {
 
         //Player board init
         // this.playerBoard = new GameBoard(boardHeight, boardWidth);
-        this.playerBoard = new GameBoard();
-        int celNum = boardHeight * boardWidth;
-        for (int i = 0; i < celNum; i++) {
-            playerBoard.add(new Cell());
-        }
+        this.playerBoard = new GameBoard(boardWidth,boardHeight);
+
 
         //Player grid view init
         playerGridView = (GridView) findViewById(R.id.playerTurnView);
@@ -55,10 +52,7 @@ public class GameActivity extends AppCompatActivity {
         playerGridView.setOnItemClickListener(itemClickedListener);
         playerGridView.setNumColumns(boardWidth);
 
-        this.opponentBoard = new GameBoard();
-        for (int i = 0; i < celNum; i++) {
-            opponentBoard.add(new Cell());
-        }
+        this.opponentBoard = new GameBoard(boardWidth,boardHeight);
 
         //Opponent grid view init
         opponentGridview = (GridView) findViewById(R.id.opponentTurnView);
@@ -75,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
             /*Toast.makeText(GameActivity.this, "item at pos: " + position,
                     Toast.LENGTH_SHORT).show();
                     */
-            playerBoard.get(position).setHit();
+            playerBoard.hit(position);
             playerBoardAdapter.notifyDataSetChanged();
 
             if (playerBoard.wonGame()) {//will change to move to score activity

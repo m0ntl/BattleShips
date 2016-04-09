@@ -14,16 +14,16 @@ public class GameLogic {
         int location, max = board.size();
         boolean legalHit = false;
         Random RANDOM = new Random();
-        while(!legalHit){
+        //while(!legalHit){
             //Choose a random location to hit
-            location = RANDOM.nextInt(max + 1);
+            //location = RANDOM.nextInt(max + 1);
             //check that location is legal
-            if(!board.get(location).isHit()){
+            //if(!board.getCell(location).isHit()){
                 //hit location and exit loop
-                board.get(location).setHit();
-                legalHit=true;
-            }
-        }
+                //board.getCell(location).setHit();
+                //legalHit=true;
+            //}
+        //}
     }
 
     public static Orientation randomOrientation(){
@@ -49,10 +49,15 @@ public class GameLogic {
         return c;
     }
 
-    public static boolean shipOverlapps(Coordinate start, Orientation o, ArrayList<Ship> shipArray){
-
+    /*public static boolean shipOverlapps(Coordinate start, Orientation orientation, int shipLength, GameBoard board){
+        int stepSize;
+        if(orientation == Orientation.HORIZONTAL){
+            stepSize=1;
+        } else {
+            stepSize = board.
+        }
         return false;
-    }
+    }*/
 }
 
 

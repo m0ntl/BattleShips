@@ -12,40 +12,41 @@ public class GameBoard /*implements Parcelable*/ {
 
     private int height, width;
     private ArrayList<Cell> boardArray;
+    private ShipArray ships;
 
-    //public GameBoard(int height, int width) {
-    public GameBoard() {
-        //  this.height = height;
-        //  this.width = width;
+    public GameBoard(int width, int height) {
+    //public GameBoard() {
+        this.height = height;
+        this.width = width;
         this.boardArray = new ArrayList<Cell>();
-    }
-
-    // public int getHeight() {
-    // return height;
-    // }
-
-    //   public int getWidth() {
-    // return width;
-    //  }
-    public boolean wonGame() {
-        for (Cell c : boardArray) {
-            if ((!c.isHit()) && c.containsShip()) {
-                return false;
-            }
+        //add cells to the cell array
+        for (int i = 0; i < width*height; i++) {
+            addCell(new Cell());
         }
-        return true;
+        ships = new ShipArray();
     }
 
-    public Cell get(int position) {
+    private void addCell(Cell c){
+        boardArray.add(c);
+    }
+    public boolean wonGame() {
+        return ships.allShipsDrowned();
+    }
+
+    /*public Cell getCell(int position) {
         return boardArray.get(position);
     }
 
-    public void add(Cell c) {
+    public void addCell(Cell c) {
         boardArray.add(c);
-    }
+    }*/
 
     public ArrayList getBoard() {
         return boardArray;
+    }
+
+    public void hit(int position){
+        boardArray.get(position).setHit();
     }
 
     public int size() {

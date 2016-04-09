@@ -8,12 +8,13 @@ package com.bs.battleships;
 public class Cell {
     private boolean hasShip;
     private int shipID;
-    boolean hit;
+    private boolean hit, drowned;
 
     public Cell(boolean hasShip, int shipID) {
         this.hasShip = hasShip;
         this.shipID = shipID;
         this.hit = false;
+        this.drowned = false;
     }
 
     public Cell() {
@@ -41,20 +42,25 @@ public class Cell {
         this.hit = true;
     }
 
-    public int getImageId(){
-        if(!isHit()){
-            return R.drawable.unselected;
-        } else if(containsShip()){
-            return R.drawable.ic_ship;
-        } else {
-            return R.drawable.ic_empty;
-        }
+    public boolean isDrowned(){
+        return drowned;
     }
 
-    public String toString(){
-        if(hit){
-            return "Was hit";
+    public void setDrowned(){
+        this.drowned = true;
+    }
+
+    public int getImageId(){
+        if(!isHit()){ //square not opened yet
+            return R.drawable.unselected;
+        } else if(containsShip()){//square opened and contains ship
+            if(isDrowned()){//ship is drowned
+                return R.drawable.ic_sunk_ship;
+            }else {//ship not drowned
+                return R.drawable.ic_ship;
+            }
+        }else {//cell is empty
+            return R.drawable.ic_empty;
         }
-        return "Not hit" ;
     }
 }

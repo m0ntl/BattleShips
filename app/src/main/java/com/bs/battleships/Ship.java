@@ -6,8 +6,8 @@ package com.bs.battleships;
 public class Ship {
     private static int idCounter=0;
     private int id, length, numHits=0;
-    Coordinate start;
-    Orientation shipOrientation;
+    private Coordinate start;
+    private Orientation shipOrientation;
 
     public Ship(int length, Coordinate start, Orientation shipOrientation){
         this.length = length;
