@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class ShipArray {
     private ArrayList<Ship> shipArray;
-    //private static int[] shipLengthMeter = {2,3,3,4,4};
 
     public ShipArray(){
         shipArray = new ArrayList<>();

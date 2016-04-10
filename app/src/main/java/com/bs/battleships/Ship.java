@@ -1,5 +1,7 @@
 package com.bs.battleships;
 
+import android.util.Log;
+
 /**
  * Created by montl on 10/04/2016.
  */
@@ -10,6 +12,7 @@ public class Ship {
     private Orientation shipOrientation;
 
     public Ship(int length, int location, Orientation shipOrientation){
+        Log.i("In ship constructor", "the orientation is: "+shipOrientation.name());
         this.length = length;
         this.location = location;
         this.shipOrientation = shipOrientation;
@@ -30,5 +33,8 @@ public class Ship {
     }
     public int getLength() {
         return length;
+    }
+    public int getID(){
+        return id;
     }
 }

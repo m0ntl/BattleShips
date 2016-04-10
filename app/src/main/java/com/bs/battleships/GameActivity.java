@@ -9,7 +9,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class GameActivity extends AppCompatActivity {
+    private static int[] shipLengthIndex = {2,3,3,4,4}; //used to define ship length by ship number
+    private Random RANDOM = new Random();
+    int numOfShips;
+    int boardHeight, boardWidth;
 
     //Player board creation
     private GridView playerGridView;
@@ -38,12 +44,14 @@ public class GameActivity extends AppCompatActivity {
 
         //Board size should be received from the main activity
         //(6,8),(6,10),(6,12)
-        int boardHeight = 6, boardWidth = 12;
+        boardHeight = 6;
+        boardWidth = 12;
+        numOfShips = 3;
 
         //Player board init
         // this.playerBoard = new GameBoard(boardHeight, boardWidth);
         this.playerBoard = new GameBoard(boardWidth,boardHeight);
-
+        addShips(numOfShips,playerBoard);
 
         //Player grid view init
         playerGridView = (GridView) findViewById(R.id.playerTurnView);
@@ -52,7 +60,9 @@ public class GameActivity extends AppCompatActivity {
         playerGridView.setOnItemClickListener(itemClickedListener);
         playerGridView.setNumColumns(boardWidth);
 
+        //Opponent init
         this.opponentBoard = new GameBoard(boardWidth,boardHeight);
+        addShips(numOfShips,opponentBoard);
 
         //Opponent grid view init
         opponentGridview = (GridView) findViewById(R.id.opponentTurnView);
@@ -83,6 +93,23 @@ public class GameActivity extends AppCompatActivity {
 
     private void opponentTurn() {
 
+    }
+    private void addShips(int numShips, GameBoard board){
+        int position,ori;
+        Orientation o;
+        //loop for number of ships
+        while(numShips > 0){
+            //Random position
+            position = RANDOM.nextInt(board.boardSize()+1);
+            //Random Orientation
+            ori = RANDOM.nextInt(2);
+            o = Orientation.values()[ori];
+            Log.i("Adam in loop111 ", Integer.toString(ori));
+            //If adding the ship succeeds reduce the number of ships left to add.
+            if(board.addShip(new Ship(shipLengthIndex[numShips-1],position,o))){
+                numShips--;
+            }
+        }
     }
 
 }

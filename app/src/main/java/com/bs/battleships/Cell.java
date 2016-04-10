@@ -10,13 +10,6 @@ public class Cell {
     private int shipID;
     private boolean hit, drowned;
 
-    public Cell(boolean hasShip, int shipID) {
-        this.hasShip = hasShip;
-        this.shipID = shipID;
-        this.hit = false;
-        this.drowned = false;
-    }
-
     public Cell() {
         this.hasShip = false;
         this.hit = false;
@@ -25,27 +18,20 @@ public class Cell {
     public boolean containsShip(){
         return hasShip;
     }
-    public boolean addShip(int shipID){
-        if (containsShip()) {
-            return false;
-        }
+    public void addShip(int shipID){
         this.hasShip = true;
         this.shipID = shipID;
-        return true;
     }
 
     public boolean isHit() {
         return hit;
     }
-
     public void setHit() {
         this.hit = true;
     }
-
     public boolean isDrowned(){
         return drowned;
     }
-
     public void setDrowned(){
         this.drowned = true;
     }

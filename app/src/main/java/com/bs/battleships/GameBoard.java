@@ -2,6 +2,7 @@ package com.bs.battleships;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,8 @@ public class GameBoard /*implements Parcelable*/ {
             stepSize = width;
         }
         for(int i=0;i<ship.getLength();i++){
-            hitCell(position);
+            //hitCell(position);
+            boardArray.get(position).addShip(ship.getID());
             position = position + stepSize;
         }
     }
@@ -95,12 +97,14 @@ public class GameBoard /*implements Parcelable*/ {
         return true;
     }
     private boolean notOverlappingShip(Ship ship){
-        int stepSize,position = ship.getLocation();
+        int stepSize=3,position = ship.getLocation();
         //check if the ship overlaps any other ship on the board
         if(ship.getOrientation() == Orientation.HORIZONTAL){
             stepSize = 1;
-        } else {
+            Log.i("Adam ship", "I added a ship horizontally: ");
+        } else if(ship.getOrientation() == Orientation.VERTICAL){
             stepSize = width;
+            Log.i("Adam ship", "I added a ship vertically: ");
         }
         for(int i=0;i<ship.getLength();i++){
             if(checkCellHit(position)){
