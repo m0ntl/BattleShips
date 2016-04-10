@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dimen_imageview_width_dp">32dp</dimen>
+    <dimen name="big_font">15pt</dimen>
 </resources>

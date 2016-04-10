@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
-    private static int[] shipLengthIndex = {2,3,3,4,4}; //used to define ship length by ship number
+    private static int[] shipLengthIndex = {2, 3, 3, 4, 4}; //used to define ship length by ship number
     private Random RANDOM = new Random();
     int numOfShips;
     int boardHeight, boardWidth;
@@ -36,6 +36,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent myIntent = getIntent(); // gets the previously created intent
+        int level = myIntent.getIntExtra("gameLevel", GameBoard.LEVEL_NORMAL);
+
         setContentView(R.layout.game_activity_view);
 
         //write to log
@@ -44,34 +47,28 @@ public class GameActivity extends AppCompatActivity {
         //save context for reference inside inner classes
         context = getApplicationContext();
 
-        //Board size should be received from the main activity
-        //(6,8),(6,10),(6,12)
-        boardHeight = 6;
-        boardWidth = 12;
+        /*  todo: move */
         numOfShips = 5;
-
-        //Player board init
-        // this.playerBoard = new GameBoard(boardHeight, boardWidth);
-        this.playerBoard = new GameBoard(boardWidth,boardHeight);
-        addShips(numOfShips,playerBoard);
+        GameBoard.setLevel(level);
+        this.playerBoard = new GameBoard(level);
+        callAddShips(numOfShips, playerBoard);
 
         //Player grid view init
         playerGridView = (GridView) findViewById(R.id.playerTurnView);
         playerBoardAdapter = new BoardAdapter(this, playerBoard);
         playerGridView.setAdapter(playerBoardAdapter);
         playerGridView.setOnItemClickListener(itemClickedListener);
-        playerGridView.setNumColumns(boardWidth);
+        playerGridView.setNumColumns(GameBoard.getColumnCount());
 
         //Opponent init
-        this.opponentBoard = new GameBoard(boardWidth,boardHeight);
-        addShips(numOfShips,opponentBoard);
+        this.opponentBoard = new GameBoard(level);
+        callAddShips(numOfShips, opponentBoard);
 
         //Opponent grid view init
         opponentGridview = (GridView) findViewById(R.id.opponentTurnView);
         opponentBoardAdapter = new BoardAdapter(this, opponentBoard);
         opponentGridview.setAdapter(opponentBoardAdapter);
-        opponentGridview.setNumColumns(boardWidth);
-
+        opponentGridview.setNumColumns(GameBoard.getColumnCount());
     }
 
     AdapterView.OnItemClickListener itemClickedListener = new AdapterView.OnItemClickListener() {
@@ -81,13 +78,13 @@ public class GameActivity extends AppCompatActivity {
             /*Toast.makeText(GameActivity.this, "item at pos: " + position,
                     Toast.LENGTH_SHORT).show();
                     */
-            if(!playerBoard.cellIsHit(position)){
+            if (!playerBoard.cellIsHit(position)) {
                 playerBoard.hitCell(position);
                 playerBoardAdapter.notifyDataSetChanged();
                 if (playerBoard.wonGame()) {//will change to move to score activity
                     //Toast.makeText(GameActivity.this,"You have won",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ResultActivity.class);
-                    intent.putExtra("ResultMessage","You have won!!!");
+                    intent.putExtra("ResultMessage", "You have won!!!");
                     startActivity(intent);
                 } else {
                     //Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
@@ -100,36 +97,37 @@ public class GameActivity extends AppCompatActivity {
     private void opponentTurn() {
         //Log.i("opponent turn ", "playing opponent now");
         boolean legalTurn = false;
-        int hitPosition=0;
-        while(!legalTurn){
+        int hitPosition = 0;
+        while (!legalTurn) {
             hitPosition = RANDOM.nextInt(opponentBoard.boardSize());
-            if(!opponentBoard.cellIsHit(hitPosition)){
+            if (!opponentBoard.cellIsHit(hitPosition)) {
                 legalTurn = true;
             }
         }
         opponentBoard.hitCell(hitPosition);
         opponentBoardAdapter.notifyDataSetChanged();
-        if(opponentBoard.wonGame()){
+        if (opponentBoard.wonGame()) {
             Toast.makeText(GameActivity.this, "Opponent has won", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ResultActivity.class);
-            intent.putExtra("ResultMessage","You have lost!!!");
+            intent.putExtra("ResultMessage", "You have lost!!!");
             startActivity(intent);
         }
         //Toast.makeText(GameActivity.this, "Your turn now", Toast.LENGTH_SHORT).show();
     }
-    private void addShips(int numShips, GameBoard board){
-        int position,ori;
+
+    private void callAddShips(int numShips, GameBoard board) {
+        int position, ori;
         Orientation o;
         //loop for number of ships
-        while(numShips > 0){
+        while (numShips > 0) {
             //Random position
-            position = RANDOM.nextInt(board.boardSize()+1);
+            position = RANDOM.nextInt(board.boardSize() + 1);
             //Random Orientation
             ori = RANDOM.nextInt(2);
             o = Orientation.values()[ori];
             //Log.i("Adam in loop111 ", Integer.toString(ori));
             //If adding the ship succeeds reduce the number of ships left to add.
-            if(board.addShip(new Ship(shipLengthIndex[numShips-1],position,o))){
+            if (board.addShip(new Ship(shipLengthIndex[numShips - 1], position, o))) {
                 numShips--;
             }
         }

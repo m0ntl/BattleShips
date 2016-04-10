@@ -45,7 +45,12 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
             imageView = new ImageView(mContext);
 
             final int dimenPix = (int) mContext.getResources().getDimension(R.dimen.dimen_imageview_width_dp);//84
-            imageView.setLayoutParams(new GridView.LayoutParams(dimenPix, dimenPix));
+           // imageView.setLayoutParams(new GridView.LayoutParams(dimenPix, dimenPix));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            //imageView.setPadding(2,2, 2, 2);
+
+
 
 //            //get windows display size in pixels
 //            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
@@ -71,7 +76,7 @@ public class BoardAdapter extends ArrayAdapter<Cell> {
 //            Log.i("Adam: ", "((dispHeight/3)*2 - 40 - board.getHeight()*5)/board.getHeight(): "+new Double(iconHeight).toString());*/
 ////
 //          //  imageView.setLayoutParams(new GridView.LayoutParams((int)(iconWidth), (int)(iconHeight)));
-//            //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //           // imageView.setPadding(10,10,0,20);
         } else {
             imageView = (ImageView) convertView;

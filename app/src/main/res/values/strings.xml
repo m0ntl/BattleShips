@@ -5,4 +5,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_opponent_turn">opponentTurn</string>
+    <string name="level1">Easy</string>
+    <string name="level2">Normal</string>
+    <string name="level3">Hard</string>
+    <string name="my_territory">My Territory</string>
+    <string name="Opponent_territory">Opponent Territory</string>
 </resources>
