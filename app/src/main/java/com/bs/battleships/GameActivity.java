@@ -1,6 +1,7 @@
 package com.bs.battleships;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,15 +86,36 @@ public class GameActivity extends AppCompatActivity {
                 playerBoardAdapter.notifyDataSetChanged();
                 if (playerBoard.wonGame()) {//will change to move to score activity
                     //Toast.makeText(GameActivity.this,"You have won",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ResultActivity.class);
+                    intent.putExtra("ResultMessage","You have won!!!");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
+                    opponentTurn();
                 }
-                Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
-                opponentTurn();
             }
         }
     };
 
     private void opponentTurn() {
-        Log.i("opponent turn ", "playing opponent now");
+        //Log.i("opponent turn ", "playing opponent now");
+        boolean legalTurn = false;
+        int hitPosition=0;
+        while(!legalTurn){
+            hitPosition = RANDOM.nextInt(opponentBoard.boardSize());
+            if(!opponentBoard.cellIsHit(hitPosition)){
+                legalTurn = true;
+            }
+        }
+        opponentBoard.hitCell(hitPosition);
+        opponentBoardAdapter.notifyDataSetChanged();
+        if(opponentBoard.wonGame()){
+            Toast.makeText(GameActivity.this, "Opponent has won", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ResultActivity.class);
+            intent.putExtra("ResultMessage","You have lost!!!");
+            startActivity(intent);
+        }
+        Toast.makeText(GameActivity.this, "Your turn now", Toast.LENGTH_SHORT).show();
     }
     private void addShips(int numShips, GameBoard board){
         int position,ori;

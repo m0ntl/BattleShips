@@ -104,6 +104,7 @@ public class GameBoard /*implements Parcelable*/ {
         return boardArray.get(position).isHit();
     }
     public void hitCell(int position){
+        Log.i("Debugging error ", "the hit position is: " +Integer.toString(position));
         boardArray.get(position).setHit();
         //if cell contains a ship
         if(boardArray.get(position).containsShip()){
