@@ -5,7 +5,7 @@ import android.util.Log;
 /**
  * Created by montl on 10/04/2016.
  */
-public class Ship {
+public class Ship implements Comparable<Ship> {
     private static int idCounter=0;
     private int id, location, length, numHits=0;
     //private Coordinate start;
@@ -38,4 +38,8 @@ public class Ship {
         return id;
     }
 
+    @Override
+    public int compareTo(Ship other) {
+        return this.id - other.id;
+    }
 }
