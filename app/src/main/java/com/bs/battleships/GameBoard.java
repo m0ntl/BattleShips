@@ -26,30 +26,18 @@ public class GameBoard /*implements Parcelable*/ {
         }
         ships = new ShipArray();
     }
-
     private void addCell(Cell c){
         boardArray.add(c);
     }
     public boolean wonGame() {
         return ships.allShipsDrowned();
     }
-
-    /*public Cell getCell(int position) {
-        return boardArray.get(position);
-    }
-
-    public void addCell(Cell c) {
-        boardArray.add(c);
-    }*/
-
     public ArrayList getBoard() {
         return boardArray;
     }
-
     public int boardSize() {
         return boardArray.size();
     }
-
     public boolean addShip(Ship ship){
         if(shipInBorder(ship) && notOverlappingShip(ship)){
             ships.addShip(ship);
@@ -58,7 +46,6 @@ public class GameBoard /*implements Parcelable*/ {
         }
         return false;
     }
-
     private void updateBoard(Ship ship) {
         //go over cells in board and update them that there is a ship there
         int stepSize,position = ship.getLocation();
@@ -74,7 +61,6 @@ public class GameBoard /*implements Parcelable*/ {
             position = position + stepSize;
         }
     }
-
     private boolean shipInBorder(Ship ship) {
         //check that the ship is inside the borders of the game board
         if(ship.getOrientation() == Orientation.HORIZONTAL){
@@ -107,17 +93,43 @@ public class GameBoard /*implements Parcelable*/ {
             Log.i("Adam ship", "I added a ship vertically: ");
         }
         for(int i=0;i<ship.getLength();i++){
-            if(checkCellHit(position)){
+            if(cellIsHit(position)){
                 return false;
             }
             position = position + stepSize;
         }
         return true;
     }
-    public boolean checkCellHit(int position){
+    public boolean cellIsHit(int position){
         return boardArray.get(position).isHit();
     }
     public void hitCell(int position){
         boardArray.get(position).setHit();
+        //if cell contains a ship
+        if(boardArray.get(position).containsShip()){
+            //find the ship id
+            int id = boardArray.get(position).getShipID();
+            //hit the ship
+            ships.hitShip(id);
+            //if ship has drowned update all cells to know that
+            if(ships.shipHasDrowned(id)){
+                updateShipDrowned(ships.getShipByID(id));
+            }
+        }
+
+    }
+    private void updateShipDrowned(Ship ship){
+        int stepSize,position = ship.getLocation();
+        //check if the ship overlaps any other ship on the board
+        if(ship.getOrientation() == Orientation.HORIZONTAL){
+            stepSize = 1;
+        } else {
+            stepSize = width;
+        }
+        for(int i=0;i<ship.getLength();i++){
+            //hitCell(position);
+            boardArray.get(position).setDrowned();
+            position = position + stepSize;
+        }
     }
 }

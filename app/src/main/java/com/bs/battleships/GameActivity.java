@@ -16,6 +16,7 @@ public class GameActivity extends AppCompatActivity {
     private Random RANDOM = new Random();
     int numOfShips;
     int boardHeight, boardWidth;
+    boolean legalTurn;
 
     //Player board creation
     private GridView playerGridView;
@@ -79,20 +80,20 @@ public class GameActivity extends AppCompatActivity {
             /*Toast.makeText(GameActivity.this, "item at pos: " + position,
                     Toast.LENGTH_SHORT).show();
                     */
-            playerBoard.hitCell(position);
-            playerBoardAdapter.notifyDataSetChanged();
-
-            if (playerBoard.wonGame()) {//will change to move to score activity
-                //Toast.makeText(GameActivity.this,"You have won",Toast.LENGTH_SHORT).show();
+            if(!playerBoard.cellIsHit(position)){
+                playerBoard.hitCell(position);
+                playerBoardAdapter.notifyDataSetChanged();
+                if (playerBoard.wonGame()) {//will change to move to score activity
+                    //Toast.makeText(GameActivity.this,"You have won",Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
+                opponentTurn();
             }
-
-            Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
-            opponentTurn();
         }
     };
 
     private void opponentTurn() {
-
+        Log.i("opponent turn ", "playing opponent now");
     }
     private void addShips(int numShips, GameBoard board){
         int position,ori;

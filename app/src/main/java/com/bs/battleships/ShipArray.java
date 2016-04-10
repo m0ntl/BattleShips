@@ -22,10 +22,21 @@ public class ShipArray {
         }
         return true;
     }
-    //public Ship(int length, Coordinate start, Orientation shipOrientation)
-    //private Ship initShip(int shipNum){
-        Orientation orientation = GameLogic.randomOrientation();
-        //Coordinate start = GameLogic.shipLocation(orientation,shipLength[shipNum],shipArray);   here is where I am working
-        //return new Ship(shipLengthMeter[shipNum],new Coordinate(1,1),orientation);//here also, think about coordinate of start
-    //}
+    private int findShipPositionByID(int ID){
+        for(Ship s: shipArray){
+            if(s.getID() == ID){
+                return shipArray.indexOf(s);
+            }
+        }
+        return -1;
+    }
+    public void hitShip(int id){
+        shipArray.get(findShipPositionByID(id)).hitShip();
+    }
+    public boolean shipHasDrowned(int id){
+        return shipArray.get(findShipPositionByID(id)).isDrowned();
+    }
+    public Ship getShipByID(int id){
+        return shipArray.get(findShipPositionByID(id));
+    }
 }

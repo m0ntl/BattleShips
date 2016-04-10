@@ -35,7 +35,6 @@ public class Cell {
     public void setDrowned(){
         this.drowned = true;
     }
-
     public int getImageId(){
         if(!isHit()){ //square not opened yet
             return R.drawable.unselected;
@@ -48,5 +47,8 @@ public class Cell {
         }else {//cell is empty
             return R.drawable.ic_empty;
         }
+    }
+    public int getShipID(){
+        return shipID;
     }
 }
