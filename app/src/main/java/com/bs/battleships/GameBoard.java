@@ -69,7 +69,7 @@ public class GameBoard /*implements Parcelable*/ {
                 return false;
             }
             //check that the beginning and end of the ship fit on the same row
-            if (ship.getLocation() % width != ship.getLocation()+ship.getLength() % width){
+            if ((ship.getLocation() / width) != ((ship.getLocation()+ship.getLength()) / width)){
                 return false;
             }
         } else { //ship orientation is vertical

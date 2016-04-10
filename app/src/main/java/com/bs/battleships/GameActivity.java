@@ -90,7 +90,7 @@ public class GameActivity extends AppCompatActivity {
                     intent.putExtra("ResultMessage","You have won!!!");
                     startActivity(intent);
                 } else {
-                    Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(GameActivity.this, "Opponent's turn now", Toast.LENGTH_SHORT).show();
                     opponentTurn();
                 }
             }
@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity {
             intent.putExtra("ResultMessage","You have lost!!!");
             startActivity(intent);
         }
-        Toast.makeText(GameActivity.this, "Your turn now", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(GameActivity.this, "Your turn now", Toast.LENGTH_SHORT).show();
     }
     private void addShips(int numShips, GameBoard board){
         int position,ori;
@@ -127,7 +127,7 @@ public class GameActivity extends AppCompatActivity {
             //Random Orientation
             ori = RANDOM.nextInt(2);
             o = Orientation.values()[ori];
-            Log.i("Adam in loop111 ", Integer.toString(ori));
+            //Log.i("Adam in loop111 ", Integer.toString(ori));
             //If adding the ship succeeds reduce the number of ships left to add.
             if(board.addShip(new Ship(shipLengthIndex[numShips-1],position,o))){
                 numShips--;
