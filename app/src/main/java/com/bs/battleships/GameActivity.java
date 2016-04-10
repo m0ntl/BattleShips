@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
         //(6,8),(6,10),(6,12)
         boardHeight = 6;
         boardWidth = 12;
-        numOfShips = 3;
+        numOfShips = 5;
 
         //Player board init
         // this.playerBoard = new GameBoard(boardHeight, boardWidth);

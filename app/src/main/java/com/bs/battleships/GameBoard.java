@@ -87,13 +87,11 @@ public class GameBoard /*implements Parcelable*/ {
         //check if the ship overlaps any other ship on the board
         if(ship.getOrientation() == Orientation.HORIZONTAL){
             stepSize = 1;
-            Log.i("Adam ship", "I added a ship horizontally: ");
-        } else if(ship.getOrientation() == Orientation.VERTICAL){
+        } else {
             stepSize = width;
-            Log.i("Adam ship", "I added a ship vertically: ");
         }
         for(int i=0;i<ship.getLength();i++){
-            if(cellIsHit(position)){
+            if(cellHasShip(position)){
                 return false;
             }
             position = position + stepSize;
@@ -132,5 +130,8 @@ public class GameBoard /*implements Parcelable*/ {
             boardArray.get(position).setDrowned();
             position = position + stepSize;
         }
+    }
+    private boolean cellHasShip(int position){
+        return boardArray.get(position).containsShip();
     }
 }
