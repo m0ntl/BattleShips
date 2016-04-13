@@ -42,7 +42,6 @@ public class Coordinate implements Parcelable{
         dest.writeInt(y);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Coordinate> CREATOR = new Parcelable.Creator<Coordinate>() {
         @Override
         public Coordinate createFromParcel(Parcel in) {

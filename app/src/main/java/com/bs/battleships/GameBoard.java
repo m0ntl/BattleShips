@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by montl on 27/03/2016.
  */
-public class GameBoard /*implements Parcelable*/ {
+public class GameBoard implements Parcelable{
 
     protected final static int LEVEL_EASY = 0;
     protected final static int LEVEL_NORMAL = 1;
@@ -202,4 +202,47 @@ public class GameBoard /*implements Parcelable*/ {
         level = l;
 
     }
+
+    protected GameBoard(Parcel in) {
+        height = in.readInt();
+        width = in.readInt();
+        if (in.readByte() == 0x01) {
+            boardArray = new ArrayList<Cell>();
+            in.readList(boardArray, Cell.class.getClassLoader());
+        } else {
+            boardArray = null;
+        }
+        ships = (ShipArray) in.readValue(ShipArray.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(height);
+        dest.writeInt(width);
+        if (boardArray == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(boardArray);
+        }
+        dest.writeValue(ships);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<GameBoard> CREATOR = new Parcelable.Creator<GameBoard>() {
+        @Override
+        public GameBoard createFromParcel(Parcel in) {
+            return new GameBoard(in);
+        }
+
+        @Override
+        public GameBoard[] newArray(int size) {
+            return new GameBoard[size];
+        }
+    };
 }
