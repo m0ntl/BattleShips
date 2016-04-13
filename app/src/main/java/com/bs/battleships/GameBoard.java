@@ -124,7 +124,7 @@ public class GameBoard /*implements Parcelable*/ {
             }
         } else { //ship orientation is vertical
             //check that the ship is on the board
-            if (ship.getLocation() + (ship.getLength() - 1) * width > boardSize()) {
+            if (ship.getLocation() + (ship.getLength() - 1) * width >= boardSize()) {
                 return false;
             }
             //no need to check that the ship fits on the same row because if it does not the
