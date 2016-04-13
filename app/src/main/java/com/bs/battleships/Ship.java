@@ -1,11 +1,13 @@
 package com.bs.battleships;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 /**
  * Created by montl on 10/04/2016.
  */
-public class Ship implements Comparable<Ship> {
+public class Ship implements Comparable<Ship>,Parcelable {
     private static int idCounter=0;
     private int id, location, length, numHits=0;
     //private Coordinate start;
@@ -42,4 +44,38 @@ public class Ship implements Comparable<Ship> {
     public int compareTo(Ship other) {
         return this.id - other.id;
     }
+
+    protected Ship(Parcel in) {
+        id = in.readInt();
+        location = in.readInt();
+        length = in.readInt();
+        numHits = in.readInt();
+        shipOrientation = (Orientation) in.readValue(Orientation.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(location);
+        dest.writeInt(length);
+        dest.writeInt(numHits);
+        dest.writeValue(shipOrientation);
+    }
+
+    public static final Parcelable.Creator<Ship> CREATOR = new Parcelable.Creator<Ship>() {
+        @Override
+        public Ship createFromParcel(Parcel in) {
+            return new Ship(in);
+        }
+
+        @Override
+        public Ship[] newArray(int size) {
+            return new Ship[size];
+        }
+    };
 }
